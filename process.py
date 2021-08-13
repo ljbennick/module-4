@@ -9,4 +9,14 @@ def sales_reports(log_file):  # defining function
             print(line)  # print those lines
 
 
-sales_reports(log_file)  # running that function on the file
+# sales_reports(log_file)  # running that function on the file
+
+
+def big_melon_orders(log_file):
+    for line in log_file:
+        line = line.rstrip('\n').split(',')
+        if "Melon" > 10:
+            print(line)
+
+
+big_melon_orders(log_file)

@@ -90,7 +90,40 @@ SELECT MIN(employee.birth_date) FROM employee;
 -- 2.
 SELECT MAX(employee.birth_date) FROM employee;
 
+
+-- invoice
+-- 1.
+SELECT COUNT(quantity) FROM invoice_line
+WHERE invoice_id IN(
+  SELECT invoice_id FROM invoice 
+  WHERE invoice.billing_state = 'CA' OR invoice.billing_state = 'TX' OR invoice.billing_state = 'AZ'
+  );
+
+-- 2.
+SELECT AVG(total) FROM invoice;
+
+-- MORE JOIN
+-- 1.
+SELECT playlist_track.track_id FROM playlist_track
+JOIN playlist ON playlist_track.playlist_id = playlist.playlist_id
+  WHERE name = 'Music';
+
+-- 2.
+SELECT track.name FROM track
+JOIN playlist_track ON track.track_id = playlist_track.track_id
+WHERE playlist_id = 5;
+
 -- 3.
+SELECT track.name AS "Track", playlist.name AS "Playlist" FROM track
+JOIN playlist_track ON track.track_id = playlist_track.track_id
+JOIN playlist ON playlist_track.playlist_id = playlist.playlist_id;
+
+-- 4.
+SELECT track.name, album.title FROM track
+JOIN album ON track.album_id = album.album_id
+JOIN genre ON track.genre_id = genre.genre_id
+WHERE genre.name = 'Alternative & Punk';
+
 
 
 
