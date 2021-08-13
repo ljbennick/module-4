@@ -66,3 +66,62 @@ SELECT album.title AS "Album Title", artist.name AS "Artist Name"
 FROM album
 JOIN artist ON album.artist_id = artist.artist_id;
 
+
+-- EXTRA CREDIT!!
+
+-- artist
+-- 1.
+SELECT * FROM artist
+ORDER BY artist.name DESC
+LIMIT 10;
+
+-- 2.
+SELECT * FROM artist
+WHERE name LIKE 'Black%';
+
+-- 3.
+SELECT * FROM artist
+WHERE name LIKE '%Black%';
+
+-- employee
+-- 1.
+SELECT MIN(employee.birth_date) FROM employee;
+
+-- 2.
+SELECT MAX(employee.birth_date) FROM employee;
+
+-- 3.
+
+
+
+-- Data Modeling
+CREATE TABLE species (
+  species_id SERIAL PRIMARY KEY,
+  name VARCHAR(20)
+);
+
+CREATE TABLE animal (
+  animal_id SERIAL PRIMARY KEY,
+  name VARCHAR(20),
+  age INT,
+  species INT NOT NULL REFERENCES species(species_id),
+  is_adoptable BOOLEAN
+  );
+
+  CREATE TABLE adopter(
+  adopter_id SERIAL PRIMARY KEY,
+  name VARCHAR(20),
+  age INT NOT NULL,
+  location VARCHAR(50),
+  occupation VARCHAR(40),
+  animal_id INT NOT NULL REFERENCES animal(animal_id)
+  );
+
+CREATE TABLE animal_invoice (
+  invoice_id SERIAL PRIMARY KEY,
+  price INT NOT NULL,
+  timestamp TIMESTAMP,
+  animal_id INT NOT NULL REFERENCES animal(animal_id),
+  adopter_id INT NOT NULL REFERENCES adopter(adopter_id)
+  );
+  
